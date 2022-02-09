@@ -1,0 +1,60 @@
+<script>
+
+    // DATA DAFTAR BARANG DAN HARGA //
+  const baju = ["Baju Merah", "Baju Putih", "Baju Biru"];
+  const itemPrices = [10000, 15000, 20000]
+  const userCart = [0, 0, 0]
+
+
+  do {
+        // TAMPILAN DAFTAR BARANG DAN HARGA //
+      let menu = "Monggo bajunya mbak : \n"
+      for (let i = 0; i < baju.length; i ++) {
+      menu += `${i + 1}. ${baju[i]} Harga = Rp. ${itemPrices[i].toLocaleString()}\n`
+      }
+      
+      menu += `${baju.length + 1}. Lihat Total Tagihan Anda`
+      
+      let menuInput = prompt(menu)
+      menuInput = parseInt(menuInput)
+      if (menuInput == baju.length + 1) {
+          break
+      }
+
+      // MENU INPUT TO INDEX & MENYATUKAN ARRAYS //
+      let menuInputIndex = (menuInput - 1)
+      let bajuYangDipilih = baju[menuInputIndex]
+      let hargaYangDipilih = itemPrices[menuInputIndex]
+      
+      
+      // MENU JUMLAH BARANG YANG MAU DIBELI //
+      let userQuantity = prompt(`Masukan jumlah ${bajuYangDipilih} yang ingin anda beli`)
+      userQuantity = parseInt(userQuantity)
+      
+      let jumlahBajuUser = userQuantity[menuInputIndex]
+
+    } while(true)    
+
+    let keranjangUser = `Total Tagihan Anda Sebesar : \n`
+    if (menuInput == baju.length + 1) {
+        for (let i = 0; i < baju.length; i++) {
+            keranjangUser += `${baju[i]} * ${userCart[i]} => Rp. ${userCart[i]} * ${itemPrices[i]}\n`
+           
+           alert (keranjangUser) 
+        }
+    }
+
+
+
+
+
+  alert (`Total Tagihan Anda Sebesar = Rp. ${totalHarga}`)
+
+
+
+
+
+
+
+
+</script>

@@ -1,0 +1,212 @@
+<script>
+  let items = ["LOTR", "Harry Potter", "Sherlock", "Naruto"];
+  let prices = [2000, 3000, 4000, 5000];
+  let userCart = [0, 0, 0, 0];
+
+  // ==== FUNGSI UNTUK NAMPILIN MENU ADMIN ========
+
+  function showMenu() {
+    let productsList = "";
+
+    for (let i = 0; i < items.length; i++) {
+      productsList += `${i + 1}. ${items[i]} Harga = Rp. ${prices[
+        i
+      ].toLocaleString()}\n`;
+    }
+
+    return productsList;
+  }
+
+  // ===== MENU PILIH USER UNTUK LOGIN ======
+
+  do {
+    let userLogIn = prompt(`Silahkan pilih user :
+            1. Admin
+            2. Customer
+            3. Exit`);
+    userLogIn = parseInt(userLogIn);
+
+    //==== KALO MILIH ADMIN ==================
+
+    if (userLogIn == 1) {
+      do {
+        // Tampilin mnenu
+        const userMenuInput = prompt(`Menu:
+                1. Tambah data
+                2. Delete data
+                3. Show data
+                4. Update data
+                5. Exit`);
+
+        // Jika user pilih Tambah Data
+        if (userMenuInput == "1") {
+          let userInputNewProduct = prompt("Tambahkan buku anda");
+          let userInputNewPrices = prompt("Tambahkan harga barang anda");
+          userInputNewPrices = parseInt(userInputNewPrices);
+
+          items.push(userInputNewProduct);
+          prices.push(userInputNewPrices);
+          userCart.push(0);
+
+          alert("Buku dan harga berhasil ditambah");
+
+          // Jika user pilih Delete Data
+        } else if (userMenuInput == "2") {
+          alert("Pilih buku yang ingin anda hapus");
+
+          let productsList = showMenu();
+
+          let userDeleteItemInput = prompt(productsList);
+          userDeleteItemInput = parseInt(userDeleteItemInput);
+
+          let userDeleteItemIndex = userDeleteItemInput - 1;
+
+          items.splice(userDeleteItemIndex, 1);
+          prices.splice(userDeleteItemIndex, 1);
+          userCart.splice(userDeleteItemIndex, 1);
+
+          alert(`Buku ${userDeleteItemInput} berhasil dihapus!`);
+
+          // JIka user pilih Show Data
+        } else if (userMenuInput == "3") {
+          productsList = showMenu();
+
+          alert(productsList);
+
+          // Jika user pilih Update Data
+        } else if (userMenuInput == "4") {
+          alert("Pilih buku yang ingin anda ubah");
+
+          productsList = showMenu();
+          let userChangeItemInput = prompt(productsList);
+          userChangeItemInput = parseInt(userChangeItemInput);
+
+          let userChangeItemIndex = userChangeItemInput - 1;
+
+          let judulBaru = prompt(
+            `Anda ingin mengubah ${items[userChangeItemIndex]} jadi apa?`
+          );
+
+          items[userChangeItemIndex] = judulBaru;
+
+          alert("Ganti harga");
+          let hargaBaru = prompt(`Input harga baru`);
+          hargabaru = parseInt(hargaBaru);
+
+          prices[userChangeItemIndex] = hargaBaru;
+
+          // Jika user pilih Exit
+        } else if (userMenuInput == "5") {
+          alert("Exit Menu");
+          break;
+        }
+      } while (true);
+
+      //==== KALO MILIH CUSTOMER =============
+    } else if (userLogIn == 2) {
+      do {
+        let userMenu = prompt(`Pilih menu di bawah:
+              1. Add to cart
+              2. Show cart
+              3. Check out
+              4. Back`);
+
+        userMenu = parseInt(userMenu);
+        if (userMenu == 1) {
+          let menu = "Monggo bukunya mbak : \n";
+          for (let i = 0; i < items.length; i++) {
+            menu += `${i + 1}. ${items[i]} Harga = Rp. ${prices[
+              i
+            ].toLocaleString()}\n`;
+          }
+          menu += `${items.length + 1}. Back`;
+
+          do {
+            // User input barang
+            let menuInput = prompt(menu);
+            menuInput = parseInt(menuInput);
+
+            if (menuInput == items.length + 1) {
+              break;
+            }
+
+            // MENU INPUT TO INDEX & MENYATUKAN ARRAYS //
+            let menuInputIndex = menuInput - 1;
+            let bukuYangDipilih = items[menuInputIndex];
+            let hargaYangDipilih = prices[menuInputIndex];
+
+            // MENU JUMLAH BARANG YANG MAU DIBELI //
+            let userQuantity = prompt(
+              `Masukan jumlah ${bukuYangDipilih} yang ingin anda beli`
+            );
+            userQuantity = parseInt(userQuantity);
+
+            userCart[menuInputIndex] = userQuantity;
+            // TAMPILAN DAFTAR BARANG DAN HARGA //
+          } while (true);
+
+          // KALAU PILIH SHOW CART
+        } else if (userMenu == 2) {
+          let cart = "";
+          let totalPrice = 0;
+
+          for (let i = 0; i < items.length; i++) {
+            cart += `${items[i]} x ${userCart[i]} -> Rp. ${
+              userCart[i] * prices[i]
+            }\n`;
+
+            totalPrice += userCart[i] * prices[i];
+          }
+
+          cart += `Total Belanjaan Anda Sebesar : Rp. ${totalPrice}`;
+          alert(cart);
+        } else if (userMenu == 3) {
+          let cart = "";
+          let totalPrice = 0;
+
+          for (let i = 0; i < items.length; i++) {
+            cart += `${items[i]} x ${userCart[i]} -> Rp. ${
+              userCart[i] * prices[i]
+            }\n`;
+
+            totalPrice += userCart[i] * prices[i];
+          }
+
+          cart += `Total Belanjaan Anda Sebesar : Rp. ${totalPrice}`;
+          alert(cart);
+
+          do {
+            let userPembayaran =
+              prompt(`Masukan jumlah uang yang ingin anda bayar
+                Total belanja anda = Rp. ${totalPrice.toLocaleString()}`);
+            userPembayaran = parseInt(userPembayaran);
+
+            if (userPembayaran > totalPrice) {
+              alert(
+                `Terimakasih, kembalian anda sebesar = Rp. ${(
+                  userPembayaran - totalPrice).toLocaleString()
+                }`
+              );
+              break;
+            } else if (userPembayaran < totalPrice) {
+              alert(
+                `Ngga bisa ngutang bos, masih kurang = Rp. ${(
+                  totalPrice - userPembayaran).toLocaleString()
+                }`
+              );
+            } else if (userPembayaran == totalPrice) {
+              alert(`Terima kasih, semoga datang kembali~`);
+              break;
+            }
+          } while (true);
+
+          // ===== KALO MILIH EXIT =====
+        } else if (userMenu == 4) {
+          break;
+        }
+      } while (true);
+    } else if (userLogIn == 3) {
+      break;
+    }
+  } while (true);
+</script>

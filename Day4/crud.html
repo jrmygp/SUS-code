@@ -1,0 +1,71 @@
+<script>
+
+
+    let products = ["LOTR", "Harry Potter", "Sherlock", "Naruto"];
+
+
+    do {
+    // Tampilin mnenu
+  const userMenuInput = prompt(`Menu:
+    1. Tambah data
+    2. Delete data
+    3. Show data
+    4. Exit`);
+
+
+  // switch (userMenuInput) {
+  //     case "1" :
+  //         //prompt
+  //         //alert
+  //         //confirm
+  //         break
+  // }
+
+
+
+  // Jika user pilih Tambah Data
+  if (userMenuInput == "1") {
+    let userInputNewProduct = prompt ("Tambahkan buku anda")
+
+    products.push(userInputNewProduct)
+    alert ("Buku berhasil ditambah")
+
+    // Jika user pilih Delete Data
+  } else if (userMenuInput == "2") {
+    alert("Pilih buku yang ingin anda hapus");
+
+    let productsList = "";
+
+    for (let i = 0; i < products.length; i++) {
+      productsList += i + 1 + ". " + products[i] + "\n";
+    }
+    let userDeleteItemInput = prompt(productsList);
+    userDeleteItemInput = parseInt(userDeleteItemInput)
+
+    let userDeleteItemIndex = userDeleteItemInput - 1
+
+    products.splice(userDeleteItemIndex, 1)
+
+    // JIka user pilih Show Data
+  } else if (userMenuInput == "3") {
+    
+    let productsList = "";
+
+    for (let i = 0; i < products.length; i++) {
+      productsList += i + 1 + ". " + products[i] + "\n";
+    }
+    alert(productsList);
+
+
+
+
+
+
+    // Jika user pilih Exit
+  } else if (userMenuInput == "4") {
+    alert("Exit Menu");
+    break
+  }
+} while (true)
+
+</script>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Data</title>
+  </head>
+  <body>
+    <style>
+      table,
+      td,
+      th {
+        border: 3px solid pink;
+        border-collapse: collapse;
+      }
+    </style>
+
+    <table>
+      <!-- Header untuk table -->
+      <thead>
+        <!-- table row -->
+        <tr>
+          <!-- table head -->
+          <th>No.</th>
+          <th>Name</th>
+          <th>Occupation</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th colspan="2">Action</th>
+          <!-- pake colspan supaya dia makan (2) kolom jadi satu -->
+        </tr>
+      </thead>
+      <!-- Data atau body table -->
+      <tbody id="tableData"></tbody>
+
+      <!-- Footer untuk table -->
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>
+            <input id="nameInput" type="text" />
+          </td>
+          <td>
+            <select id="occupationInput">
+              <option>Software Developer</option>
+              <option>Digital Marketer</option>
+              <option>UI/UX</option>
+              <option>Data Science</option>
+            </select>
+          </td>
+          <td>
+             <label for="genderPria">
+                <input checked id="genderPria" name="gender" type="radio" value="Pria" />Pria 
+                 <!--checked supaya setting default udah ke check duluan -->
+                 <!-- dipakein label supaya pas dipencet nama pria/wanita, radio buttonnya juga kepencet -->
+             </label>
+             <label for="genderWanita">
+                 <input id="genderWanita" name="gender" type="radio" value="Wanita" />Wanita
+             </label>
+          </td>
+          <td> <input id="ageInput" type="text"></td>
+          <td colspan="2">
+            <button onclick="addData()">Add</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+
+    <script>
+      class Person {
+        constructor(fullName, occupation, gender, age) {
+          this.fullName = fullName;
+          this.occupation = occupation;
+          this.gender = gender
+          this.age = age
+        }
+      
+      }
+
+      let data = [
+        new Person("Mark", "Software Developer", "Pria", 17),
+        new Person("Steve", "CEO", "Pria", 21),
+        new Person("Bill", "UI/UX", "Pria", 13),
+        new Person("Seto", "Data Science", "Pria", 30),
+        // new Person ({fullName: "Mark", age: 20, gender: "Wanita", occupation: "Digital Marketer"})
+      ];
+
+      // kasih parameter editIdx supaya tau index mana dalam mode edit.
+      const renderData = (editIdx) => {
+        let htmlResult = "";
+
+        // shortcut untuk looping for (i = 0; i < data.length; i++)
+        data.forEach((val, idx) => {
+          // mode edit
+          if (idx == editIdx) {
+            htmlResult += `
+            <tr>
+            <td>${idx + 1}</td>
+            <td><input id = "editFullName" value="${val.fullName}"></td>
+            <td>
+              <select id= "editOccupation">
+                <option ${val.occupation == "Software Developer" ? "selected" : ""} >Software Developer</option>
+                <option ${val.occupation == "Digital Marketer" ? "selected" : ""} >Digital Marketer</option>
+                <option ${val.occupation == "UI/UX" ? "selected" : ""} >UI/UX</option>
+                <option ${val.occupation == "Data Science" ? "selected" : ""} >Data Science</option> 
+              </select>
+            </td>
+            <td>
+              <label for="editGenderPria">
+                <input ${val.gender == "Pria" ? "checked" : ""} checked id="editGenderPria" name="editGender" type="radio" value="Pria" />Pria
+             </label>
+             <label for="editGenderWanita">
+                 <input ${val.gender == "Wanita" ? "checked" : ""} id="editGenderWanita" name="editGender" type="radio" value="Wanita" />Wanita
+             </label>
+            </td>
+            <td><input id = "editAge" value="${val.age}"></td>
+            <td>
+              <button onclick = "renderData()">Cancel</button>
+            </td>
+            <td>
+              <button onclick = "saveData(${idx})">Save</button>
+            </td>
+            </tr>`
+          } else {
+            // mode biasa
+            htmlResult += `
+              <tr>
+              <td>${idx + 1}</td>
+              <td>${val.fullName}</td>
+              <td>${val.occupation}</td>
+              <td>${val.gender}</td>
+              <td>${val.age}</td>
+              <td>
+                <button onclick = "renderData(${idx})">Edit</button>
+              </td>
+              <td>
+                <button onclick= "deleteData(${idx})" >Delete</button>
+              </td>
+              </tr>`;
+
+          }
+        });
+
+        document.getElementById("tableData").innerHTML = htmlResult;
+      };
+      renderData();
+
+      // Nambah data
+      const addData = () => {
+          
+        const isPriaChecked = document.getElementById("genderPria").checked
+        const isWanitaChecked = document.getElementById("genderWanita").checked
+
+        let gender;
+
+        // jika radio button yang dipencet pria
+        if (isPriaChecked) {
+          gender = "Pria"
+        } else if (isWanitaChecked) { // jika radio button yang dipencet wanita
+          gender = "Wanita"
+        }
+
+        let fullNameInput = document.getElementById("nameInput").value;
+        let occupationInput = document.getElementById("occupationInput").value;
+        let ageInput = document.getElementById("ageInput").value
+        ageInput = parseInt(ageInput)
+        
+
+        // mencegah salah satu field dikosongin sama user
+        if (!fullNameInput || !occupationInput) {
+          alert("Kedua field harus diisi!");
+          return;
+        }
+
+        const newPerson = new Person(fullNameInput, occupationInput, gender, ageInput);
+        data.push(newPerson);
+
+       
+
+        renderData(); // harus dipanggil lagi function ini supaya dia nampilin data terbaru.
+
+        // supaya text box nya kosong lagi setelah submit
+        document.getElementById("nameInput").value = "";
+        
+      };
+
+      // Delete data
+      const deleteData = (deleteIdx) => {
+        data.splice(deleteIdx, 1);
+
+        renderData(); // harus dipanggil lagi function ini supaya dia nampilin data terbaru.
+      };
+
+      const saveData = (editIdx) => {
+        const isPriaChecked = document.getElementById("editGenderPria").checked
+        const isWanitaChecked = document.getElementById("editGenderWanita").checked
+
+        let gender;
+
+        // jika radio button yang dipencet pria
+        if (isPriaChecked) {
+          gender = "Pria"
+        } else if (isWanitaChecked) { // jika radio button yang dipencet wanita
+          gender = "Wanita"
+        }
+
+        let fullNameInput = document.getElementById("editFullName").value;
+        let occupationInput = document.getElementById("editOccupation").value; 
+        let ageInput = document.getElementById("editAge").value
+        ageInput = parseInt(ageInput)
+
+        data[editIdx].fullName = fullNameInput
+        data[editIdx].occupation = occupationInput
+        data[editIdx].age = ageInput
+        data[editIdx].gender = gender
+
+        renderData()
+      }
+    </script>
+  </body>
+</html>

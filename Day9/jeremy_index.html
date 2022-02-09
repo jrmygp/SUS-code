@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Data</title>
+  </head>
+  <body>
+    <style>
+      table,
+      td,
+      th {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+
+    <table>
+      <!-- Header untuk table -->
+      <thead>
+        <!-- table row -->
+        <tr>
+          <!-- table head -->
+          <th>No.</th>
+          <th>Name</th>
+          <th>Occupation</th>
+          <th>Gender</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <!-- Data atau body table -->
+      <tbody id="tableData"></tbody>
+
+      <!-- Footer untuk table -->
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>
+            <input id="nameInput" type="text" />
+          </td>
+          <td>
+            <select name="" id="occupationInput">
+              <option value="Software Developer">Software Developer</option>
+              <option value="Digital Marketer">Digital Marketer</option>
+              <option value="UI/UX">UI/UX</option>
+              <option value="Data Science">Data Science</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="addData()">Add</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <input id="genderPria" name="gender" type="radio" value="Pria" />Pria
+    <input id="genderWanita" name="gender" type="radio" value="Wanita" />Wanita
+
+    <script>
+      class Person {
+        constructor(fullName, occupation, gender) {
+          this.fullName = fullName;
+          this.occupation = occupation;
+          this.gender = gender
+        }
+      
+      }
+
+      let data = [
+        new Person("Mark", "Software Developer", "Pria"),
+        new Person("Steve", "CEO", "Pria"),
+        new Person("Bill", "UI/UX", "Pria"),
+        new Person("Seto", "Data Scientist", "Pria"),
+      ];
+
+      const renderData = () => {
+        let htmlResult = "";
+
+        // shortcut untuk looping for (i = 0; i < data.length; i++)
+        data.forEach((val, idx) => {
+          htmlResult += `
+            <tr>
+            <td>${idx + 1}</td>
+            <td>${val.fullName}</td>
+            <td>${val.occupation}</td>
+            <td>${val.gender}</td>
+            <td>
+                <button onclick= "deleteData(${idx})" >Delete</button>
+            </td>
+            </tr>`;
+        });
+
+        //
+        document.getElementById("tableData").innerHTML = htmlResult;
+      };
+      renderData();
+
+      // Nambah data
+      const addData = () => {
+          
+        const isPriaChecked = document.getElementById("genderPria").checked
+        const isWanitaChecked = document.getElementById("genderWanita").checked
+
+        let gender;
+
+        if (isPriaChecked) {
+          gender = "Pria"
+        } else if (isWanitaChecked) {
+          gender = "Wanita"
+        }
+
+        let fullNameInput = document.getElementById("nameInput").value;
+        let occupationInput = document.getElementById("occupationInput").value;
+        let genderInput = document.getElementsByTagName("input")[0].checked
+
+        
+
+        // mencegah salah satu field dikosongin sama user
+        if (!fullNameInput || !occupationInput) {
+          alert("Kedua field harus diisi!");
+          return;
+        }
+
+        const newPerson = new Person(fullNameInput, occupationInput, gender);
+        data.push(newPerson);
+
+       
+
+        renderData(); // harus dipanggil lagi function ini supaya dia nampilin data terbaru.
+
+        // supaya text box nya kosong lagi setelah submit
+        document.getElementById("nameInput").value = "";
+        document.getElementById("occupationInput").value = "";
+      };
+
+      // Delete data
+      const deleteData = (deleteIdx) => {
+        data.splice(deleteIdx, 1);
+
+        renderData(); // harus dipanggil lagi function ini supaya dia nampilin data terbaru.
+      };
+    </script>
+  </body>
+</html>

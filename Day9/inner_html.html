@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="welcome1">Hello World</h1>
+    <h1 id="welcome2">Halo Dunia</h1>
+    <h1 id="welcome3">Welcome to Purwadhika</h1>
+    <!-- dikasih id, supaya ada identifier karena dalam web ga mungkin h1 cuman muncul sekali/dukali -->
+    <input id="welcomeInput" type="text" />
+    <button onclick="alertValue()">PENCET GAN</button>
+
+    <script>
+      //   const modifyInnerHtml = () => {
+      //       // ketika kita manggil getElementByTagName kita akan mendapatkan arrays (jangan lupa kasih index di akhirnya)
+      //     // const arr = document.getElementsByTagName("h1")[1];
+
+      //     // pake innerHTML untuk mengakses konten si h1[1]
+      //     // console.log(arr.innerHTML);
+      //     // // untuk ganti konten yang ada di h1[1]
+      //     // arr.innerHTML = "Halo Kawan-kawan"
+
+      // document.getElementById("welcome3").innerHTML = "Halo kawan-kawan"
+      //   };
+
+      //   modifyInnerHtml();
+
+      //   const modifyH1 = () => {
+
+      //     document.getElementById("welcome1").innerHTML = "Halo kawan-kawan"
+      //   }
+
+      const alertValue = () => {
+        const inputValue = document.getElementById("welcomeInput").value;
+
+        alert(inputValue);
+
+        document.getElementById("welcome1").innerHTML = inputValue;
+      };
+    </script>
+  </body>
+</html>

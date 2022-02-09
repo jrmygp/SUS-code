@@ -1,0 +1,274 @@
+<script>
+  class Jualan {
+    constructor(items, prices, userCart) {
+      this.items = items;
+      this.prices = prices;
+      this.userCart = 0;
+    }
+    calculateTotalPrice = () => {
+      return this.prices * this.userCart;
+    };
+
+    toString = () => {
+      return `${this.items} || Rp. ${this.prices.toLocaleString()} x ${
+        this.userCart
+      } = ${this.calculateTotalPrice().toLocaleString()}\n`;
+    };
+  }
+  let jualanBuku = [
+    new Jualan("LOTR", 2000, 0),
+    new Jualan("Harry Potter", 3000, 0),
+    new Jualan("Sherlock", 4000, 0),
+    new Jualan("Naruto", 5000, 0),
+  ];
+
+  let transactionReport = [];
+
+  // ==== FUNGSI UNTUK NAMPILIN MENU ADMIN ========
+
+  function showMenu() {
+    let productsList = "";
+
+    for (let i = 0; i < jualanBuku.length; i++) {
+      productsList += `${i + 1}. ${jualanBuku[i].items} Harga = Rp. ${jualanBuku[
+        i
+      ].prices.toLocaleString()}\n`;
+    }
+
+    return productsList;
+  }
+
+  // ===== MENU PILIH USER UNTUK LOGIN ======
+
+  do {
+    let userLogIn = prompt(`Silahkan pilih user :
+              1. Admin
+              2. Customer
+              3. Exit`);
+    userLogIn = parseInt(userLogIn);
+
+    //==== KALO MILIH ADMIN ==================
+
+    if (userLogIn == 1) {
+      do {
+        // Tampilin mnenu
+        const userMenuInput = prompt(`Menu:
+                  1. Tambah data
+                  2. Delete data
+                  3. Show data
+                  4. Update data
+                  5. Report
+                  6. Exit`);
+
+        // Jika user pilih Tambah Data
+        if (userMenuInput == "1") {
+          let userInputNewProduct = prompt("Tambahkan buku anda");
+          let userInputNewPrices = prompt("Tambahkan harga barang anda");
+          userInputNewPrices = parseInt(userInputNewPrices);
+
+          // items.push(userInputNewProduct);
+          // prices.push(userInputNewPrices);
+          // userCart.push(0);
+          // productBought.push(0)
+
+          jualan.push({
+            items: userInputNewProduct,
+            prices: userInputNewPrices,
+            userCart: 0,
+            productBought: 0,
+          });
+
+          alert("Buku dan harga berhasil ditambah");
+
+          // Jika user pilih Delete Data
+        } else if (userMenuInput == "2") {
+          alert("Pilih buku yang ingin anda hapus");
+
+          let productsList = showMenu();
+
+          let userDeleteItemInput = prompt(productsList);
+          userDeleteItemInput = parseInt(userDeleteItemInput);
+
+          let userDeleteItemIndex = userDeleteItemInput - 1;
+
+          // items.splice(userDeleteItemIndex, 1);
+          // prices.splice(userDeleteItemIndex, 1);
+          // userCart.splice(userDeleteItemIndex, 1);
+          // productBought.splice(userDeleteItemIndex, 1)
+
+          jualan.splice(userDeleteItemIndex, 1);
+
+          alert(`Buku ${userDeleteItemInput} berhasil dihapus!`);
+
+          // JIka user pilih Show Data
+        } else if (userMenuInput == "3") {
+          productsList = showMenu();
+
+          alert(productsList);
+
+          // Jika user pilih Update Data
+        } else if (userMenuInput == "4") {
+          alert("Pilih buku yang ingin anda ubah");
+
+          productsList = showMenu();
+          let userChangeItemInput = prompt(productsList);
+          userChangeItemInput = parseInt(userChangeItemInput);
+
+          let userChangeItemIndex = userChangeItemInput - 1;
+
+          let judulBaru = prompt(
+            `Anda ingin mengubah ${jualanBuku[userChangeItemIndex].items} jadi apa?`
+          );
+
+          jualanBuku[userChangeItemIndex].items = judulBaru;
+
+          alert("Ganti harga");
+          let hargaBaru = prompt(`Input harga baru`);
+          hargaBaru = parseInt(hargaBaru);
+
+          jualanBuku[userChangeItemIndex].prices = hargaBaru;
+
+          // KALAU PILIH REPORT DATA
+        } else if (userMenuInput == "5") {
+          let reportData = "";
+          let totalTransactionAmount = 0;
+
+          for (let i = 0; i < transactionReport.length; i++) {
+            reportData += `${transactionReport[i].produkTerjual} * ${
+              transactionReport[i].quantityTerjual
+            } -> Rp. ${
+              transactionReport[i].quantityTerjual *
+              transactionReport[i].hargaProdukTerjual
+            }\n`;
+
+            totalTransactionAmount +=
+              transactionReport[i].quantityTerjual *
+              transactionReport[i].hargaProdukTerjual;
+          }
+
+          reportData += `Total penjualan anda sebesar : Rp. ${totalTransactionAmount.toLocaleString()}`;
+          alert(reportData);
+
+          // Jika user pilih Exit
+        } else if (userMenuInput == "6") {
+          alert("Exit Menu");
+          break;
+        }
+      } while (true);
+
+      //==== KALO MILIH CUSTOMER =============
+    } else if (userLogIn == 2) {
+      do {
+        let userMenu = prompt(`Pilih menu di bawah:
+                1. Add to cart
+                2. Show cart
+                3. Check out
+                4. Back`);
+
+        userMenu = parseInt(userMenu);
+        if (userMenu == 1) {
+          let menu = "Monggo bukunya mbak : \n";
+          for (let i = 0; i < jualanBuku.length; i++) {
+            menu += `${i + 1}. ${jualanBuku[i].items} Harga = Rp. ${jualanBuku[
+              i
+            ].prices.toLocaleString()}\n`;
+          }
+          menu += `${jualanBuku.length + 1}. Back`;
+
+          do {
+            // User input barang
+            let menuInput = prompt(menu);
+            menuInput = parseInt(menuInput);
+
+            if (menuInput == jualanBuku.length + 1) {
+              break;
+            }
+
+            // MENU INPUT TO INDEX & MENYATUKAN ARRAYS //
+            let menuInputIndex = menuInput - 1;
+            let bukuYangDipilih = jualanBuku[menuInputIndex].items;
+            let hargaYangDipilih = jualanBuku[menuInputIndex].prices;
+
+            // MENU JUMLAH BARANG YANG MAU DIBELI //
+            let userQuantity = prompt(
+              `Masukan jumlah ${bukuYangDipilih} yang ingin anda beli`
+            );
+            userQuantity = parseInt(userQuantity);
+
+            jualanBuku[menuInputIndex].userCart += userQuantity; // dikasih += supaya quantity nya nambah terus setelah pertama kalu user input jumlah barang
+
+            // TAMPILAN DAFTAR BARANG DAN HARGA //
+          } while (true);
+
+          // KALAU PILIH SHOW CART
+        } else if (userMenu == 2) {
+          let cart = "";
+          let totalPrice = 0;
+
+          for (let i = 0; i < jualanBuku.length; i++) {
+            cart += jualanBuku[i].toString()
+
+            totalPrice += jualanBuku[i].userCart * jualanBuku[i].prices;
+          }
+          alert(cart);
+        } else if (userMenu == 3) {
+          let cart = "";
+          let totalPrice = 0;
+
+          for (let i = 0; i < jualanBuku.length; i++) {
+            cart += jualanBuku[i].toString()
+
+            totalPrice += jualanBuku[i].userCart * jualanBuku[i].prices;
+          }
+          cart += `Total Belanjaan Anda Sebesar : Rp. ${totalPrice.toLocaleString()}`;
+          alert(cart);
+
+          let userPembayaran = prompt(`Masukan jumlah uang yang ingin anda bayar
+                  Total belanja anda = Rp. ${totalPrice.toLocaleString()}`);
+          userPembayaran = parseInt(userPembayaran);
+
+          if (userPembayaran > totalPrice) {
+            alert(
+              `Terimakasih, kembalian anda sebesar = Rp. ${(
+                userPembayaran - totalPrice
+              ).toLocaleString()}`
+            );
+          } else if (userPembayaran < totalPrice) {
+            let kembalian = totalPrice - userPembayaran;
+            alert(
+              `Ngga bisa ngutang bos, masih kurang = Rp. ${(
+                totalPrice - userPembayaran
+              ).toLocaleString()}`
+            );
+          } else if (userPembayaran === totalPrice) {
+            alert(`Terima kasih, semoga datang kembali~`);
+          }
+
+          for (let i = 0; i < jualanBuku.length; i++) {
+            if (jualanBuku[i].userCart > 0) {
+              transactionReport.push({
+                produkTerjual: jualanBuku[i].items,
+                hargaProdukTerjual: jualanBuku[i].prices,
+                quantityTerjual: jualanBuku[i].userCart,
+              });
+            }
+          }
+
+          for (let i = 0; i < jualanBuku.length; i++) {
+            jualanBuku[i].userCart = 0;
+          }
+          break;
+
+          // ===== KALO MILIH EXIT =====
+        } else if (userMenu == 4) {
+          break;
+        }
+      } while (true);
+    } else if (userLogIn == 3) {
+      alert(
+        `TERIMA KASIH SUDAH MENGUNJUNGI TOKO ABANG BAMBANG SURABANG ONLINE`
+      );
+      break;
+    }
+  } while (true);
+</script>
