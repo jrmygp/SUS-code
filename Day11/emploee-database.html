@@ -72,7 +72,7 @@
       <br />
       <label for="searchOccupation">Occupation</label>
       <select id="searchOccupation">
-        <option>All Occupations</option>
+        <option value="">All Occupations</option>
         <option>Software Developer</option>
         <option>UI/UX</option>
         <option>Digital Marketer</option>
@@ -243,9 +243,6 @@
         let searchOccupation =
           document.getElementById("searchOccupation").value;
 
-          if (searchOccupation == "All Occupation") {
-              searchOccupation = ""
-          }
 
         data.forEach((val, idx) => {
           if (
