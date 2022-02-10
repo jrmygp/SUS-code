@@ -102,7 +102,7 @@
       class Person {
         constructor(firstName, lastName, email, occupation, age) {
           this.firstName = firstName;
-          this.lastName = lastName; 
+          this.lastName = lastName;
           this.email = email;
           this.occupation = occupation;
           this.age = age;
@@ -112,13 +112,19 @@
       let data = [
         new Person("John", "Doe", "John@mail.com", "Software Developer", 17),
         new Person("Anjim", "Banget", "anjimbanget@mail.com", "UI/UX", 999),
-        new Person("Anjir", "Uhuy", "anjirbanget@mail.com", "Software Developer", 29),
+        new Person(
+          "Anjir",
+          "Uhuy",
+          "anjirbanget@mail.com",
+          "Software Developer",
+          29
+        ),
       ];
 
       const renderData = (editIdx) => {
         let htmlResult = "";
         data.forEach((val, idx) => {
-         if (idx == editIdx) {
+          if (idx == editIdx) {
             htmlResult += `
             <tr>
             <td>${idx + 1}</td>
@@ -127,10 +133,18 @@
             <td><input id = "editEmail" value="${val.email}"></td>
             <td>
               <select id= "editOccupation">
-                <option ${val.occupation == "Software Developer" ? "selected" : ""} >Software Developer</option>
-                <option ${val.occupation == "Digital Marketer" ? "selected" : ""} >Digital Marketer</option>
-                <option ${val.occupation == "UI/UX" ? "selected" : ""} >UI/UX</option>
-                <option ${val.occupation == "Data Science" ? "selected" : ""} >Data Science</option> 
+                <option ${
+                  val.occupation == "Software Developer" ? "selected" : ""
+                } >Software Developer</option>
+                <option ${
+                  val.occupation == "Digital Marketer" ? "selected" : ""
+                } >Digital Marketer</option>
+                <option ${
+                  val.occupation == "UI/UX" ? "selected" : ""
+                } >UI/UX</option>
+                <option ${
+                  val.occupation == "Data Science" ? "selected" : ""
+                } >Data Science</option> 
               </select>
             </td>
             <td><input id = "editAge" value="${val.age}"></td>
@@ -140,12 +154,9 @@
             <td>
               <button onclick = "saveData(${idx})">Save</button>
             </td>
-            </tr>`
-
-
-         } else {
-
-             htmlResult += `
+            </tr>`;
+          } else {
+            htmlResult += `
                 <tr>
                 <td>${idx + 1}</td>
                 <td>${val.firstName}</td>
@@ -158,9 +169,7 @@
                     <button onclick= "deleteData(${idx})" >Delete</button>
                 </td>
                 </tr>`;
-
-
-         }
+          }
         });
 
         //
@@ -210,7 +219,6 @@
 
       // save data
       const saveData = (editIdx) => {
-
         let firstNameInput = document.getElementById("editFirstName").value;
         let lastNameInput = document.getElementById("editLastName").value;
         let emailInput = document.getElementById("editEmail").value;
@@ -218,14 +226,14 @@
         let ageInput = document.getElementById("editAge").value;
         ageInput = parseInt(ageInput);
 
-        data[editIdx].firstName = firstNameInput
-        data[editIdx].lastName = lastNameInput
-        data[editIdx].email = emailInput
-        data[editIdx].occupation = occupationInput
-        data[editIdx].age = ageInput
+        data[editIdx].firstName = firstNameInput;
+        data[editIdx].lastName = lastNameInput;
+        data[editIdx].email = emailInput;
+        data[editIdx].occupation = occupationInput;
+        data[editIdx].age = ageInput;
 
-        renderData()
-      }
+        renderData();
+      };
 
       // script untuk search database
       const renderSearch = () => {
@@ -235,7 +243,15 @@
           document.getElementById("searchOccupation").value;
 
         data.forEach((val, idx) => {
-          if (val.firstName.toLowerCase().includes(searchNameInput.toLowerCase()) && val.occupation == searchOccupation) {
+          if (
+            val.firstName
+              .toLowerCase()
+              .includes(searchNameInput.toLowerCase()) ||
+            (val.lastName
+              .toLowerCase()
+              .includes(searchNameInput.toLowerCase()) &&
+              val.occupation == searchOccupation)
+          ) {
             searchResult += ` <tr>
                     <td>${idx + 1}</td>
                     <td>${val.firstName}</td>
@@ -249,13 +265,10 @@
         document.getElementById("searchResult").innerHTML = searchResult;
       };
 
-
       // MANTAP MANIA ....... MANCING
-    
     </script>
   </body>
 </html>
-
 
 <!-- 
     1. Inisialisasi Repository (Sekali aja)
@@ -268,8 +281,6 @@
     3. Mac users (sekali seumur hidup)
         a. git config --global init.defaultBranch main
  -->
-
-
 
 <!-- 
     feat: -> feature. Digunakan ketika ada perubahan di fitur
