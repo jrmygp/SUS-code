@@ -243,6 +243,10 @@
         let searchOccupation =
           document.getElementById("searchOccupation").value;
 
+          if (searchOccupation == "All Occupation") {
+              searchOccupation = ""
+          }
+
         data.forEach((val, idx) => {
           if (
             val.firstName
