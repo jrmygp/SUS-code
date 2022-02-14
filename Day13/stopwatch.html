@@ -20,41 +20,34 @@
     <script>
       let stopWatch;
 
-      
       const startCounter = () => {
-          let addSeconds = 0;
-          let addMinutes = 0
-          
+        let addSeconds = 0;
+        let addMinutes = 0;
+
         stopWatch = setInterval(() => {
-            addSeconds = parseInt(addSeconds)
-            addMinutes = parseInt(addMinutes)
+          addSeconds = parseInt(addSeconds);
+          addMinutes = parseInt(addMinutes);
           addSeconds += 1;
 
           if (addSeconds < 10) {
-              addSeconds = "0" + addSeconds
+            addSeconds = "0" + addSeconds;
           }
-          
+
           document.getElementById("seconds").innerHTML = addSeconds;
-          
+
           if (addSeconds == 59) {
-              addMinutes += 1
-              if (addMinutes < 10) {
-                  addMinutes = "0" + addMinutes
-              }
-              addSeconds = 0
-              document.getElementById("minutes").innerHTML = addMinutes
+            addMinutes += 1;
+            if (addMinutes < 10) {
+              addMinutes = "0" + addMinutes;
+            }
+            addSeconds = 0;
+            document.getElementById("minutes").innerHTML = addMinutes;
           }
-          
         }, 50);
-
       };
-
-
 
       const stopCounter = () => {
         clearInterval(stopWatch);
-        let addSeconds = 0
-        let addMinutes = 0
       };
     </script>
   </body>
