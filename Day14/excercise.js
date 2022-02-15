@@ -24,6 +24,15 @@ const noVocal = (string) => {
 // Input: "steve"
 // Output: 71
 //
+const alphabetToNumber = (string) => {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    let result = 0;
+    for (let i = 0; i < string.split("").length; i++) {
+      result += alphabet.indexOf(string[i]) +1
+    }
+    return result;
+  };
+  console.log(alphabetToNumber("abc"))
 
 // 3. Odd alphabet value
 // Sama seperti soal nomor 2, tetapi kali ini hanya hitung huruf yang memiliki

@@ -80,19 +80,19 @@
 
 // console.log(hasil)
 
-const noVocal = (string) => {
-  let vocal = ["a", "i", "u", "e", "o"];
-  let result = "";
-  for (let i = 0; i < string.length; i++) {
-    if (!vocal.includes(string[i])) {
-      result += string[i];
-    }
-  }
-  return result;
-};
-console.log(noVocal("anjaygurinjay"));
+// const noVocal = (string) => {
+//   let vocal = ["a", "i", "u", "e", "o"];
+//   let result = "";
+//   for (let i = 0; i < string.length; i++) {
+//     if (!vocal.includes(string[i])) {
+//       result += string[i];
+//     }
+//   }
+//   return result;
+// };
+// console.log(noVocal("anjaygurinjay"));
 
-console.log(alphabet);
+// console.log(alphabet);
 
 const alphabetToNumber = (string) => {
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
