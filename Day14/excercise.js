@@ -43,7 +43,18 @@ const alphabetToNumber = (string) => {
 
 // Input: "abc"
 // Output: 4
-
+const alphabetToNumber = (string) => {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    let result = 0;
+    for (let i = 0; i < string.split("").length; i++) {
+      if (!((alphabet.indexOf(string[i]) + 1) % 2 == 0)) {
+        result += alphabet.indexOf(string[i]) + 1;
+      }
+    }
+    return result;
+  };
+  console.log(alphabetToNumber("abc"));
+  
 // 4. Unique items
 // Diketahui ada 2 array of numbers, dimana 2 array tersebut memiliki beberapa
 // value/number yang sama. Tampilkan sebuah array baru yang berisi list value

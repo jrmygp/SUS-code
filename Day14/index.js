@@ -94,12 +94,24 @@
 
 // console.log(alphabet);
 
+// const alphabetToNumber = (string) => {
+//   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+//   let result = 0;
+//   for (let i = 0; i < string.split("").length; i++) {
+//     result += alphabet.indexOf(string[i]) +1
+//   }
+//   return result;
+// };
+// console.log(alphabetToNumber("abc"))
+
 const alphabetToNumber = (string) => {
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
   let result = 0;
   for (let i = 0; i < string.split("").length; i++) {
-    result += alphabet.indexOf(string[i]) +1
+    if (!((alphabet.indexOf(string[i]) + 1) % 2 == 0)) {
+      result += alphabet.indexOf(string[i]) + 1;
+    }
   }
   return result;
 };
-console.log(alphabetToNumber("abc"))
+console.log(alphabetToNumber("abc"));
