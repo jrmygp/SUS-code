@@ -104,14 +104,25 @@
 // };
 // console.log(alphabetToNumber("abc"))
 
-const alphabetToNumber = (string) => {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-  let result = 0;
-  for (let i = 0; i < string.split("").length; i++) {
-    if (!((alphabet.indexOf(string[i]) + 1) % 2 == 0)) {
-      result += alphabet.indexOf(string[i]) + 1;
+// const alphabetToNumber = (string) => {
+//   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+//   let result = 0;
+//   for (let i = 0; i < string.split("").length; i++) {
+//     if (!((alphabet.indexOf(string[i]) + 1) % 2 == 0)) {
+//       result += alphabet.indexOf(string[i]) + 1;
+//     }
+//   }
+//   return result;
+// };
+// console.log(alphabetToNumber("abc"));
+
+const filter = (l) => {
+  let result = [];
+  for (let i = 0; i < l.length; i++) {
+    if (typeof l[i] === "number") {
+      result.push(l[i]);
     }
   }
   return result;
 };
-console.log(alphabetToNumber("abc"));
+console.log (["a","b",1,2,3].filter())
