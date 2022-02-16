@@ -105,3 +105,6 @@ const removeDuplicates = (value, idx, arr) => {
 const remove = arr3.filter(removeDuplicates);
 
 console.log(remove);
+
+
+
