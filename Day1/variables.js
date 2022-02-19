@@ -23,3 +23,7 @@
 const pi = 3.14
 
 console.log(pi)
+
+// var -> bisa redefine dan redeclare
+// let -> bisa redefine tapi tidak bisa redeclare
+// const -> tidak bisa redefine dan tidak bisa redeclare

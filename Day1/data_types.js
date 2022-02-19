@@ -1,4 +1,4 @@
-//s tring
+// string
 // const yourName = 'ikoy'
 // const myName = "jay"
 
