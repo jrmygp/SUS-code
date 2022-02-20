@@ -363,23 +363,42 @@
 // };
 // console.log(spinWords("apakah ada satu"));
 
-const likes = (names = []) => {
-  let hasil = ``;
-  for (let i = 0; i <= names.length; i++) {
-    if (names.length == 0) {
-      return (hasil = `no one likes this`);
-    } else if (names.length == 1) {
-      return (hasil = `${names[i]} likes this`);
-    } else if (names.length == 2) {
-      return (hasil = `${names[i]} and ${names[i + 1]} like this`);
-    } else if (names.length == 3) {
-      return (hasil = `${names[i]}, ${names[i + 1]} and ${names[i + 2]} like this`);
-    } else if (names.length >= 4) {
-      return (hasil = `${names[i]}, ${names[i + 1]} and ${names.length - 2} others like this`);
+// const likes = (names = []) => {
+//   let hasil = ``;
+//   for (let i = 0; i <= names.length; i++) {
+//     if (names.length == 0) {
+//       return (hasil = `no one likes this`);
+//     } else if (names.length == 1) {
+//       return (hasil = `${names[i]} likes this`);
+//     } else if (names.length == 2) {
+//       return (hasil = `${names[i]} and ${names[i + 1]} like this`);
+//     } else if (names.length == 3) {
+//       return (hasil = `${names[i]}, ${names[i + 1]} and ${names[i + 2]} like this`);
+//     } else if (names.length >= 4) {
+//       return (hasil = `${names[i]}, ${names[i + 1]} and ${names.length - 2} others like this`);
+//     }
+//   }
+//   return hasil;
+// };
+// let sampleZero = []
+// let sample = ["Peter", "Janice", "Max", "Robert", "Sully"];
+// console.log(likes(sample));
+
+// const createPhoneNumber = (arr = []) => {
+//   let hasil = `(${arr[0]}${arr[1]}${arr[2]}) ${arr[3]}${arr[4]}${arr[5]}-${arr[6]}${arr[7]}${arr[8]}${arr[9]}`
+//   return hasil
+// }
+// let sample = [1,2,3,4,5,6,7,8,9,0]
+// console.log(createPhoneNumber(sample))
+
+const findOdd = (arr=[]) => {
+  for (let i = 0; i < arr.length; i ++) {
+    let count = arr.filter(value => value === arr[i]).length
+    if(count % 2 == 1){
+      return arr[i]
     }
   }
-  return hasil;
-};
-let sampleZero = []
-let sample = ["Peter", "Janice", "Max", "Robert", "Sully"];
-console.log(likes(sample));
+  return -1
+}
+let sample = [1,1,4,1,1]
+console.log(findOdd(sample))
