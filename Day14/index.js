@@ -80,17 +80,17 @@
 
 // console.log(hasil)
 
-// const noVocal = (string) => {
-//   let vocal = ["a", "i", "u", "e", "o"];
-//   let result = "";
-//   for (let i = 0; i < string.length; i++) {
-//     if (!vocal.includes(string[i])) {
-//       result += string[i];
-//     }
-//   }
-//   return result;
-// };
-// console.log(noVocal("anjaygurinjay"));
+const noVocal = (string) => {
+  let vocal = ["a", "i", "u", "e", "o"];
+  let result = "";
+  for (let i = 0; i < string.length; i++) {
+    if (!vocal.includes(string[i])) {
+      result += string[i];
+    }
+  }
+  return result;
+};
+console.log(noVocal("anjaygurinjay"));
 
 // console.log(alphabet);
 
@@ -116,13 +116,13 @@
 // };
 // console.log(alphabetToNumber("abc"));
 
-const filter = (l) => {
-  let result = [];
-  for (let i = 0; i < l.length; i++) {
-    if (typeof l[i] === "number") {
-      result.push(l[i]);
-    }
-  }
-  return result;
-};
-console.log (["a","b",1,2,3].filter())
+// const filter = (l) => {
+//   let result = [];
+//   for (let i = 0; i < l.length; i++) {
+//     if (typeof l[i] === "number") {
+//       result.push(l[i]);
+//     }
+//   }
+//   return result;
+// };
+// console.log (["a","b",1,2,3].filter())
