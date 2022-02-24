@@ -391,14 +391,26 @@
 // let sample = [1,2,3,4,5,6,7,8,9,0]
 // console.log(createPhoneNumber(sample))
 
-const findOdd = (arr=[]) => {
-  for (let i = 0; i < arr.length; i ++) {
-    let count = arr.filter(value => value === arr[i]).length
-    if(count % 2 == 1){
-      return arr[i]
-    }
+// const findOdd = (arr=[]) => {
+//   for (let i = 0; i < arr.length; i ++) {
+//     let count = arr.filter(value => value === arr[i]).length
+//     if(count % 2 == 1){
+//       return arr[i]
+//     }
+//   }
+//   return -1
+// }
+// let sample = [1,1,4,1,1]
+// console.log(findOdd(sample))
+
+const alphabetPosition = (string) => {
+  let stringArr = string.split("")
+  let alphabet = "abcdefghijklmnopqrstuvwxyz"
+  let hasil = []
+  for (let i = 0; i < stringArr.length; i++){
+    hasil.push(alphabet.indexOf(stringArr[i])+1)
   }
-  return -1
+  return hasil.join(" ")
 }
-let sample = [1,1,4,1,1]
-console.log(findOdd(sample))
+console.log(alphabetPosition("mariska anak nakal"))
+// belum selesai, harusnya kalo di kalimat ada yang bukan huruf, return nothing.
